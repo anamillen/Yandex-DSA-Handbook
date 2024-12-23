@@ -19,7 +19,7 @@ def permutations(n):
     """
     p = 1
     for k in range(1,n+1):
-        p *= k
+        p *= k    # calculating n!
     return int(p)
 
 # main 

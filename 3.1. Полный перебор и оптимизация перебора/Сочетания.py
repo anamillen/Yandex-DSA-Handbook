@@ -19,11 +19,11 @@ def combinations(n, k):
     else:  # if the combinations value can be calculated then
         c = 1
         for k_i in range(1, n+1):
-            c *= k_i
+            c *= k_i        # multiplying by n!
             if k_i <= n-k:
-                c /= k_i
+                c /= k_i    # dividing by (n-k)!
             if k_i <= k:
-                c /= k_i
+                c /= k_i    # dividing by k!
     return int(c)
 
 # main
