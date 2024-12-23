@@ -4,7 +4,6 @@ def combinations(n, k):
     """Returns the number of combinations of k elements out of n elements
     
     Examples :
-
     >>> combinations(7, 2)
     21
 
@@ -14,15 +13,19 @@ def combinations(n, k):
     >>> combinations(3, 2)
     3
     """
-    c = 1
-    for k_i in range(1, n+1):
-        c *= k_i
-        if k_i <= n-k:
-            c /= k_i
-        if k_i <= k:
-            c /= k_i
+    if k>n:
+        # we ensure that we treat the impossible cases differently
+        c = 0
+    else:  # if the combinations value can be calculated then
+        c = 1
+        for k_i in range(1, n+1):
+            c *= k_i
+            if k_i <= n-k:
+                c /= k_i
+            if k_i <= k:
+                c /= k_i
     return int(c)
 
 # main
-n = int(input())
-print(combinations(n))
+n,k = input().split()
+print(combinations(int(n), int(k)))
