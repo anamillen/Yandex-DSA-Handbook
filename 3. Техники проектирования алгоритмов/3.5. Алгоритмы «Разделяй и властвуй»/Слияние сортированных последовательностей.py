@@ -5,21 +5,24 @@
 def merge_2(l1, l2):
     """Merges 2 sorted lists into one sorted list"""
     res = []
-    while len(l1)>0 and len(l2)>0:
-        if l1[0]<l2[0]:
-            res.append(l1.pop(0))
-        else:   # if l1[0]>=l2[0] (smallest element of l1 is bigger than smallest element of l2) then
-            res.append(l2.pop(0))
-    # from this point it's either len(l1)==0 or len(l2)==0
-    res.extend(l1)
-    res.extend(l2)
+    i, j = 0, 0  # pointers for l1 and l2
+    while i < len(l1) and j < len(l2):
+        if l1[i] <= l2[j]:
+            res.append(l1[i])
+            i += 1
+        else:
+            res.append(l2[j])
+            j += 1
+    # from this point it's either i==len(l1) or j==len(l2)
+    res.extend(l1[i:])
+    res.extend(l2[j:])
     return res
 
 def merge_n(n, lists):
     """Merges n sorted lists into one sorted list"""
-    res = []
-    for i in range(n-1):
-        res.extend(merge_2(lists[i], lists[i+1]))
+    res = lists[0]
+    for i in range(1, n):
+        res = merge_2(res, lists[i])
     return res
 
 # main program
@@ -33,10 +36,11 @@ for _ in range(n):
     nums.sort()
     lists.append(nums)
 
-if n==1:
+if n<=1:
     res = lists[0]
 else:   # if there is more than 1 list in the list sequence then
     res = merge_n(n, lists)
 
 for el in res:
     print(el, end=" ")
+
