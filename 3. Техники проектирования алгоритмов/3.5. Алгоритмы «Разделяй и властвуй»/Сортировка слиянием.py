@@ -31,9 +31,14 @@ def merge_sort(li):
     return res
 
 # main program
-li = [23,543,23,-1,-2,0,0,10]
+n = int(input())
+nums = input().split()
+li = []
+for num in nums:
+    li.append(int(num))
 res =  merge_sort(li)
-print(res)
+for el in res:
+    print(el, end=" ")
 
 
 
