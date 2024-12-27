@@ -33,13 +33,9 @@ for _ in range(n):
     nums = input().split()
     for i in range(k):
         nums[i] = int(nums[i])
-    nums.sort()
     lists.append(nums)
 
-if n<=1:
-    res = lists[0]
-else:   # if there is more than 1 list in the list sequence then
-    res = merge_n(n, lists)
+res = merge_n(n, lists)
 
 for el in res:
     print(el, end=" ")
