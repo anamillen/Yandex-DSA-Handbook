@@ -5,12 +5,12 @@
 Однако в данной задаче эту проблему можно избежать, поскольку нас интересует только последняя цифра числа Фибоначчи. 
 Если 0≤a, b≤9 — это последние цифры чисел Fi​ и Fi+1​ соответственно, то (a+b)mod10  — это последняя цифра числа Fi+2​"""
 
-def mod_of_Fn(n, divider=10):
-    """Returns the modulo divider (10 by default) of n-th Fibonacci's number"""
+def mod_of_Fn(n, m=10):
+    """Returns the modulo of n-th Fibonacci's number by m (10 by default)"""
     mod_0 = 0
     mod_1 = 1
     for _ in range(n):
-        mod_1, mod_0, = (mod_0 + mod_1)%divider, mod_1%divider
+        mod_1, mod_0, = (mod_0 + mod_1)%m, mod_1%m
     return mod_0
 
 # main program
