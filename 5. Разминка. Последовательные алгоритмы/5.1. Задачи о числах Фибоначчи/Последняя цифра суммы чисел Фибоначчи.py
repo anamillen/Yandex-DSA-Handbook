@@ -1,4 +1,4 @@
-"""Даны целые числа n и m, необходимо найти остаток от деления n-го числа Фибоначчи на m."""
+"""Дано число n, необходимо найти последнюю цифру суммы Sn = 0​+F1​+F2​+…+Fn​."""
 
 def mod_of_big_Fn(n, divider=10):
     """Returns the modulo divider (10 by default) of n-th Fibonacci's number
@@ -18,6 +18,17 @@ def mod_of_big_Fn(n, divider=10):
         mod = mods[n%period]
     return mod
 
+
+def last_digit_of_sum_Fn(n):
+    """Returns the last digit of the sum of Fibonnaci's numbers up to Fn (included)"""
+    # By induction we can prove that Sn = Fn+2 - 1, so we only need to calculate the last digit of Fn+2
+    mod_of_fn2 = mod_of_big_Fn(n+2)
+    last_digit = mod_of_fn2 - 1
+    if last_digit==-1:  # treating special cases
+        last_digit=9
+    return last_digit
+
 # main program
-n, m = [int(x) for x in input().split()]
-print(mod_of_big_Fn(n, m))
+n = int(input())
+print(last_digit_of_sum_Fn(n))
+
