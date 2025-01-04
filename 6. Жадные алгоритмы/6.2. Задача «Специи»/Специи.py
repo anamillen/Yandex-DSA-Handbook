@@ -10,6 +10,7 @@
 def max_loot(capacity, spices, n):
     """Returns the total cost of the most expensive spices stolen"""
     i = 0; total = 0
+    spices = sorted(spices, key=lambda spice: spice['cost']/spice['weight'], reverse=True)
     while capacity>0 and i<n:
         price = spices[i]['cost']/spices[i]['weight']
         amount = min(capacity, spices[i]['weight'])
@@ -18,8 +19,6 @@ def max_loot(capacity, spices, n):
         i+=1
     # from here on out it's either capacity==0 or i==n
     return total
-        
-    
 
 # main program
 n, capacity = [int(x) for x in input().split()]
@@ -27,6 +26,5 @@ spices = []
 for _ in range(n):
     cost, weight = [int(x) for x in input().split()]
     spices.append({'cost':cost, 'weight':weight})
-spices = sorted(spices, key=lambda spice: spice['cost']/spice['weight'], reverse=True)
 total = max_loot(capacity, spices, n)
 print('%.6f' % total)
