@@ -21,10 +21,14 @@ def max_profit_billboards(n_boards, n_bids, max_weeks, bids, periods):
     """Returns the max profit from advertising placements"""
     total = 0
     i_week = 0
-    offers = [[bids[i], periods[i]] for i in range(n_bids)]
+    offers =sorted(
+        [[bids[i], periods[i]] for i in range(n_bids)], 
+        key = (lambda x: x[0]),
+        reverse = True
+    )
     # we look into every week
-    while len(bids)!=0 and i_week<max_weeks:     
-        best_offers = sorted(offers, key=(lambda x: x[0]), reverse=True)
+    while len(offers)!=0 and i_week<max_weeks:     
+        best_offers = list(offers)
         # we consider every billboard
         i_board = 0
         while i_board<n_boards and i_board<len(best_offers):
