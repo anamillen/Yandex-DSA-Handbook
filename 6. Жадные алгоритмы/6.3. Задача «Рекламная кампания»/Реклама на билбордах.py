@@ -20,29 +20,20 @@ k рекламодателей хотят разместить рекламу. �
 def max_profit_billboards(n_boards, n_bids, max_weeks, bids, periods):
     """Returns the max profit from advertising placements"""
     total = 0
-    i_week = 0
+    i_offer = 0
+    disponibility = n_boards*n_weeks
     offers =sorted(
         [[bids[i], periods[i]] for i in range(n_bids)], 
         key = (lambda x: x[0]),
         reverse = True
     )
-    # we look into every week
-    while len(offers)!=0 and i_week<max_weeks:     
-        best_offers = list(offers)
-        # we consider every billboard
-        i_board = 0
-        while i_board<n_boards and i_board<len(best_offers):
-            total += best_offers[i_board][0]
-            best_offers[i_board][1] = best_offers[i_board][1] - 1      # we substract 1 week  
-            # if the offer is no longer valid then
-            if best_offers[i_board][1]==0:   
-                offers.pop(offers.index(best_offers[i_board]))
-            i_board+=1
-            # from here on out we've either exhausted all the offers (i_board>=len(best_offers))
-            # or we have no more empty billboards (i_board>=n_boards)
-        i_week+=1
-    # from here on out there are either no ad offers (len(bids)==0)
-    # or the planning period has ended (i>=max_weeks)
+    while disponibility>0 and i_offer<n_offers:
+        available_weeks = min(disponibility, offers[i_offer][1])
+        disponibility -= available_weeks
+        total += available_weeks*offers[i_offer][0]
+        i_offer += 1
+    # from here on out we either have already created a plan for the entire period (disponibility==0)
+    # or we have no more offers from advertisers (i_offer==n_offers)
     return total
 
 # main program
