@@ -21,19 +21,19 @@ def max_profit_billboards(n_boards, n_bids, max_weeks, bids, periods):
     """Returns the max profit from advertising placements"""
     total = 0
     i_offer = 0
-    disponibility = n_boards*n_weeks
+    disponibility = n_boards*max_weeks
     offers =sorted(
         [[bids[i], periods[i]] for i in range(n_bids)], 
         key = (lambda x: x[0]),
         reverse = True
     )
-    while disponibility>0 and i_offer<n_offers:
+    while disponibility>0 and i_offer<n_bids:
         available_weeks = min(disponibility, offers[i_offer][1])
         disponibility -= available_weeks
         total += available_weeks*offers[i_offer][0]
         i_offer += 1
     # from here on out we either have already created a plan for the entire period (disponibility==0)
-    # or we have no more offers from advertisers (i_offer==n_offers)
+    # or we have no more offers from advertisers (i_offer==n_bids)
     return total
 
 # main program
