@@ -19,7 +19,7 @@ def collect_signatures(segments):
         best_hour = segments[0][1]
         segments = [segments[i] for i in range(len(segments)) if segments[i][0]>best_hour]
         n_of_visits+=1
-        hours_to_visit.append(str(best_hour))
+        hours_to_visit.append(str(best_hour))   # here we convert the hours directly to string format to print it easier later
     # from here on out we have covered all the segments (len(segments)==0)
     return n_of_visits, hours_to_visit
 
