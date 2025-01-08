@@ -21,7 +21,7 @@ def form_the_largest_number(numbers):
         for num in numbers:
             if is_better(max_num=max_num, curr_num=num):
                 max_num = num
-        largest_number += str(max_num)
+        largest_number += max_num
         numbers.remove(max_num)
     # from here on out we have used up all the numbers
     return largest_number
