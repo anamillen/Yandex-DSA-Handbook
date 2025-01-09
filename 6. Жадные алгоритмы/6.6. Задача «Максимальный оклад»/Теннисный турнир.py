@@ -18,13 +18,15 @@ def max_tours(n_robots, ROBOT, robots):
     weaker_robots = len([robot for robot in robots if robot<the_skill])
     finished = False
     tour_counter = 0 
+    if n_robots==1:
+        finished = True
     while not finished:
         if stronger_robots%2==0:
             stronger_robots//=2
             weaker_robots//=2
         else:   # if the number of stronger robots is odd then
             stronger_robots = stronger_robots//2 + 1
-            if weaker_robots%2==0:
+            if weaker_robots%2==0  and weaker_robots>0:
                 weaker_robots = weaker_robots//2 - 1
             else:   # if the number of weaker robots is odd then
                 weaker_robots = weaker_robots//2
@@ -34,7 +36,6 @@ def max_tours(n_robots, ROBOT, robots):
             finished = True
             if weaker_robots>0:
                 tour_counter += 1
-
 
     return tour_counter
 
