@@ -10,41 +10,42 @@
 Определите, какое наибольше количество игр в турнире может выиграть k-й робот-спортсмен.
 """
 
-def max_tours(n_robots, ROBOT, robots):
-    """Returns the maximum number of tournaments in which
-    the robot with number ROBOT can participate"""
-    the_skill = robots[ROBOT]
-    stronger_robots = len([robot for robot in robots if robot>the_skill])
-    weaker_robots = len([robot for robot in robots if robot<the_skill])
-    finished = False
-    tour_counter = 0 
-    if n_robots==1:
-        finished = True
-    while not finished:
-        if stronger_robots%2==0:
-            stronger_robots//=2
-            weaker_robots//=2
-        else:   # if the number of stronger robots is odd then
-            stronger_robots = stronger_robots//2 + 1
-            if weaker_robots%2==0  and weaker_robots>0:
-                weaker_robots = weaker_robots//2 - 1
-            else:   # if the number of weaker robots is odd then
-                weaker_robots = weaker_robots//2
-        n_robots = stronger_robots + weaker_robots + 1
-        tour_counter += 1
-        if n_robots <= 2 or (stronger_robots%2!=0 and weaker_robots==0):
-            finished = True
-            if weaker_robots>0:
-                tour_counter += 1
+def match_making(stronger_robots, weaker_robots):
+    """Returns the number of stronger_robots and weaker_robots who passed to the next tournament"""
+    # divide the robots into pairs. stronger robots "eliminate" each other:
+    if stronger_robots % 2 == 0:
+        stronger_robots //= 2   # as the number of stronger robots is pair every one gets a pair
+        weaker_robots   //= 2   # if the number of weaker robots is pair, one of them gets a 'bye'
+                                # if it's odd, we pair one of the weaker robots with our robot
+    else:  # if the number of stronger robots is odd then
+        # one of them gets a 'bye' or gets paired with a weaker robot
+        # meaning their count decreases slightly less.
+        stronger_robots = stronger_robots // 2 + 1
+        if weaker_robots % 2 == 0:  # if the number of weaker robots is pair then
+            # the total number is pair, so one more weaker robot gets eliminated by our robot
+            weaker_robots = weaker_robots // 2 - 1
+        else:  # if the number of weaker robots is odd then
+            # one stronger robots gets a 'bye'
+            weaker_robots = weaker_robots // 2
+    return stronger_robots, weaker_robots
 
+def max_tours(robot_index, skills):
+    """Returns the maximum number of tournaments in which
+    the robot with number robot_index+1 can participate"""
+    the_skill = skills[robot_index]
+    # counting the total of stronger and weaker robots
+    stronger_robots = sum([1 for skill in skills if skill > the_skill])
+    weaker_robots = sum([1 for skill in skills if skill < the_skill])
+    tour_counter = 0
+    while weaker_robots != 0:
+        stronger_robots, weaker_robots = match_making(stronger_robots, weaker_robots)
+        tour_counter += 1
+    # from here on out, there are no more matches our robot could win. it's either:
+    # our robot is the only one standing or all the other robots are stronger (weaker_robots == 0)
     return tour_counter
 
-
-
-
 # main program
-N_ROBOTS, ROBOT = [int(x) for x in input().split()]
+_, ROBOT_NUM = [int(x) for x in input().split()]
 robot_skills = [int(a) for a in input().split()]
-
-print(max_tours(n_robots=N_ROBOTS, ROBOT=ROBOT-1, robots=robot_skills))
+print(max_tours(robot_index=ROBOT_NUM-1, skills=robot_skills))
 
