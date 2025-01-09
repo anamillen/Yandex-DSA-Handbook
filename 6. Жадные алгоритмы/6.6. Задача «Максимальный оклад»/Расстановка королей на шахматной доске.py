@@ -16,14 +16,20 @@
 
 """
 
-import math
-
 def maxkings(rows, cols):
     """Returns the maximum number of kings which can be placed
     on a rows x cols chessboard"""
-    min_free_space = math.ceil(rows/3) * math.ceil(cols/3)
-    total = (rows*cols) - min_free_space
-    return total
+    spare_cells = 0
+    # we need to minimize the amount of spare cells, the best constrution for that is when
+    # 8 kings share only 1 spare cell, therefore, 
+    # for each 3×3 block (stepping by 3 in both dimensions), we place exactly one empty cell
+    # this ensures that every king in that 3×3 block has at least one free neighboring square
+    for row in range(0, rows, 3):
+        for col in range(0, cols, 3):
+            spare_cells+=1
+    # we substract the spare cells from the total area of the board
+    answer = (rows*cols) - spare_cells
+    return answer
 
 # main program
 rows, cols = [int(x) for x in input().split()]
