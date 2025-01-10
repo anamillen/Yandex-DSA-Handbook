@@ -1,5 +1,5 @@
 """
-Ваша задача --- найти индекс элемента в сортированной последовательности равного q.
+Ваша задача --- для m значений qi​ необходимо проверить, входит ли qi​ в K.
 """
 
 def binary_search(length, li, q):
@@ -22,5 +22,7 @@ def binary_search(length, li, q):
 # main program
 length = int(input())
 li = [int(x) for x in input().split()]
-q = int(input())
-print(binary_search(length, li, q))
+num_q = int(input())
+qs = [int(x) for x in input().split()]
+for i in range(num_q):
+    print(binary_search(length, li, qs[i]))
