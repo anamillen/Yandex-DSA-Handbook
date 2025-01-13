@@ -1,11 +1,6 @@
 """
 Ваша задача --- проверить, содержит ли данная последовательность элемент, который встречается более половины раз.
 """
-import random
-
-# as it was stated in the paragraph if e is a dominating element => e is dominating in at least one of the halves
-# here we will proceed in using contraposing (equivalent) statement:
-# e isn't dominating in 1st half and e isn't dominating in 2nd half => e isn't a dominating element
 
 def e_is_dominating(e, li):
     """Returns a boolean indicating if e is a dominating element in li"""
@@ -28,12 +23,13 @@ def e_is_dominating(e, li):
 
 def dom_elem_search(len_li, li):
     """Returns a boolean indicating if there are any dominating elements in a list li"""
-    unique = list(set(li))
-    len_unique = len(unique)
     has_dom = 0
     i = 0
-    while has_dom == 0 and i < len_unique:
-        _, has_dom = e_is_dominating(unique[i], li)
+    dupes = []
+    while has_dom == 0 and i < len_li:
+        if li[i] not in dupes:
+            _, has_dom = e_is_dominating(li[i], li)
+            dupes.append(li[i])
         i += 1
     # here we have either found 1 dominating number or have scanned all the elements
     return has_dom
