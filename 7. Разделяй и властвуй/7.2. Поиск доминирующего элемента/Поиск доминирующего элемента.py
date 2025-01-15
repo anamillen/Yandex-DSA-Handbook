@@ -2,39 +2,40 @@
 Ваша задача --- проверить, содержит ли данная последовательность элемент, который встречается более половины раз.
 """
 
-def e_is_dominating(e, li):
-    """Returns a boolean indicating if e is a dominating element in li"""
-    count  = 0 
-    len_li = len(li)
-    dominating = 0
-
-    if len_li == 1: 
-        if li[0] == e:
-            count = 1
-            dominating = 1
+def dominant_candidate(len_li, li):
+    """Returns the dominant element of the list li if there's one,
+    else returns None"""
+    candidate = None
+    if len_li==1:
+        candidate = li[0]
     else:   # if the list has more than 1 element then
-        splt = len_li//2
-        first_half, _ = e_is_dominating(e, li[:splt])
-        second_half, _ = e_is_dominating(e, li[splt:])
-        count += first_half + second_half
-        if count > len_li//2 :
-            dominating = 1
-    return count, dominating
+        mid = len_li//2
+        left_cand = dominant_candidate(mid, li[:mid])
+        right_cand = dominant_candidate(len_li -  mid, li[mid:])
 
-def dom_elem_search(len_li, li):
-    """Returns a boolean indicating if there are any dominating elements in a list li"""
-    has_dom = 0
-    i = 0
-    dupes = []
-    while has_dom == 0 and i < len_li:
-        if li[i] not in dupes:
-            _, has_dom = e_is_dominating(li[i], li)
-            dupes.append(li[i])
-        i += 1
-    # here we have either found 1 dominating number or have scanned all the elements
-    return has_dom
+        if left_cand != None:
+            left_count = li.count(left_cand)
+            if left_count > mid:
+                candidate = left_cand                
+        
+        if right_cand != None:
+            right_count = li.count(right_cand)
+            if right_count > mid:
+                candidate = right_cand
 
+    return candidate
+
+def has_a_dominant(len_li, li):
+    """Return 1 if the list li has a dominant element,
+    0 otherwise"""
+    answer = 0
+    candidate = dominant_candidate(len_li, li)
+    count = li.count(candidate)
+    if count > len_li // 2:
+        answer = 1
+    return answer
+    
 # main program
 len_li = int(input())
 li = [int(x) for x in input().split()]
-print(dom_elem_search(len_li, li))
+print(has_a_dominant(len_li, li))
