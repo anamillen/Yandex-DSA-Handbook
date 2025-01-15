@@ -1,6 +1,8 @@
 """
 Ваша задача --- проверить, содержит ли данная последовательность элемент, который встречается более половины раз.
 """
+# solves the problem using divide-and-conquer approach
+# time complexity is O(n log(n))
 
 def dominant_candidate(len_li, li):
     """Returns the dominant element of the list li if there's one,
