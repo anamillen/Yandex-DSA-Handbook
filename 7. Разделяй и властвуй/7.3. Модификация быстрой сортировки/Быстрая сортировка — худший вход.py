@@ -10,7 +10,7 @@ def worst_case(seq, length):
     """Finds and returns the worst case scenario for the quick sort algorithm (time-wise)"""
     l = 0; r = length - 1
     small_e = 1; large_e = length
-    place_largest = False
+    place_largest = True
 
     def deepest_recursion_data(seq, l, r):
         """Returns a sequence of integers for which the quick sort algorithm 
@@ -19,17 +19,18 @@ def worst_case(seq, length):
         if l <= r:
 
             m = (l + r) // 2
-            place_largest = not place_largest
+            
             if place_largest:
                 seq[m] = large_e
                 large_e -= 1
-                deepest_recursion_data(seq, m + 1, r)
-                deepest_recursion_data(seq, l, m - 1)
             else:   # if place_largest is false then
                 seq[m] = small_e
                 small_e += 1
-                deepest_recursion_data(seq, l, m - 1)
-                deepest_recursion_data(seq, m + 1, r)
+            
+            place_largest = not place_largest
+                
+            deepest_recursion_data(seq, m + 1, r)
+            deepest_recursion_data(seq, l, m - 1)
         
     deepest_recursion_data(seq, l, r)
 
