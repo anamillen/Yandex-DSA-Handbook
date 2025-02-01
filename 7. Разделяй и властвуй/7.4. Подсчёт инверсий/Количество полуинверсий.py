@@ -1,7 +1,8 @@
 """
-Дан массив a из n целых чисел. Необходимо вычислить количество инверсий в этом массиве. 
-Инверсия -- это такая пара индексов i,j, что i < j и ai​ > aj​.
+Дан массив a из n целых чисел. Необходимо вычислить количество полуинверсий в этом массиве. 
+Полуинверсия -- это такая пара индексов i,j, что i < j  и ai ​≥ aj​.
 """
+
 def merge(left, right, splt, length):
     """Merges 2 lists left and right and returns the number of inversions effectuated"""
     
@@ -11,12 +12,12 @@ def merge(left, right, splt, length):
 
     while l < splt and r < length - splt:
         
-        if left[l] <= right[r]:
+        if left[l] < right[r]:
 
             srtd.append(left[l])
             l += 1
 
-        else:   # if right[r] < left[l]
+        else:   # if right[r] <= left[l]
 
             srtd.append(right[r])
             r += 1
