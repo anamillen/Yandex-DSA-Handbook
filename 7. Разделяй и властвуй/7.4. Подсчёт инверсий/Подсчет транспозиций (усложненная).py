@@ -39,16 +39,31 @@ def merge(left, right, splt, length):
 def count_T(length, lst):
 
     min_T = length * (length - 1) / 2 + 1
+    x = 1
+    new = [ a - x if a >= x else a - x + length for a in lst]
 
-    for x in range(1, length + 1):
+    while x <= length and min_T != 0:
 
-        new = [ a - x if a >= x else a - x + length for a in lst]
         num_T = count_inversions(length, new)[1]
 
         if num_T < min_T:
 
             min_T = num_T
+        
+        for i in range(length):
+            
+            if new[i] > 0:
 
+                new[i] -= 1
+
+            else:   # if new[i] <= 0
+
+                new[i] = length - 1
+
+        x += 1
+    # here either we have tested all the x
+    # or we have found a perfect solution with min_T = 0
+    
     return min_T
 
 
