@@ -53,16 +53,6 @@ def count_T(length, lst):
 
         num_T = num_T + (length - 1) - 2*pos
         
-        for i in range(length):
-            
-            if new[i] > 0:
-
-                new[i] -= 1
-
-            else:   # if new[i] <= 0
-
-                new[i] = length - 1
-
         x += 1
     # here either we have tested all the x
     # or we have found a perfect solution with min_T = 0
