@@ -42,6 +42,7 @@ def count_T(length, lst):
     x = 1
     new = [ a - x if a >= x else a - x + length for a in lst]
     num_T = count_inversions(length, new)[1]
+    positions = { lst[i]:i for i in range(length)}
     
     while x <= length and min_T != 0:
 
@@ -49,7 +50,7 @@ def count_T(length, lst):
 
             min_T = num_T
 
-        pos = lst.index(x)
+        pos = positions[x]
 
         num_T = num_T + (length - 1) - 2*pos
         
